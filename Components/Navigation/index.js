@@ -9,10 +9,11 @@ import Login from "../Login";
 export default createStackNavigator(
   {
     ItemList: ItemList,
-    ItemDetail: ItemDetail
+    ItemDetail: ItemDetail,
+    Login: Login
   },
   {
-    initialRouteName: "ItemList",
+    initialRouteName: "Login",
     navigationOptions: {
       headerTintColor: "white",
       headerStyle: {

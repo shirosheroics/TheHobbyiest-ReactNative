@@ -75,7 +75,7 @@ class ItemList extends Component {
     return (
       <Content>
         <List>{ListItems}</List>
-        {/*  <Footer transparent>
+        <Footer transparent>
           {this.props.user ? (
             <Button danger onPress={() => this.props.logout()}>
               <Text>Logout</Text>
@@ -84,17 +84,20 @@ class ItemList extends Component {
             <Button onPress={() => this.props.navigation.navigate("Login")}>
               <Text>Login</Text>
             </Button>
-          )
-        </Footer>*/}
+          )}
+        </Footer>
       </Content>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  itemList: state.item.items
+  itemList: state.item.items,
+  user: state.auth.user
 });
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(actionCreators.logout())
+});
 export default connect(
   mapStateToProps,
   mapDispatchToProps

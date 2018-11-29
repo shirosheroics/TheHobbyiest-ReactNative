@@ -1,11 +1,14 @@
 import * as actionTypes from "./actionTypes";
 
 import axios from "axios";
+const instance = axios.create({
+  baseURL: "http://192.168.100.215/api/"
+});
 
 export const fetchItems = () => {
   return dispatch => {
-    axios
-      .get("http://192.168.100.215/api/item/list/")
+    instance
+      .get("item/list/")
       .then(res => res.data)
       .then(items => {
         dispatch({ type: actionTypes.FETCH_ITEMS, payload: items });
@@ -18,7 +21,7 @@ export const fetchItems = () => {
 
 export const fetchItemDetail = itemID => {
   return dispatch => {
-    axios
+    instance
       .get(`item/${itemID}/detail/`)
       .then(res => res.data)
       .then(item =>

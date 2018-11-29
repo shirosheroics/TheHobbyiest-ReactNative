@@ -19,7 +19,6 @@ class HomePage extends Component {
     const { items } = this.props.items;
     if (!items) {
       this.props.getItemsList();
-      this.props.checkForExpiredToken();
     }
   }
 
@@ -36,8 +35,7 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = dispatch => ({
-  getItemsList: () => dispatch(actionCreators.fetchItems()),
-  checkForExpiredToken: () => dispatch(actionCreators.checkForExpiredToken())
+  getItemsList: () => dispatch(actionCreators.fetchItems())
 });
 
 export default connect(

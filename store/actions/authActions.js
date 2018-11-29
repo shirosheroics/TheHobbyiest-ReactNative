@@ -2,12 +2,14 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 import * as actionTypes from "./actionTypes";
-
 import { AsyncStorage } from "react-native";
+
+const instance = axios.create({
+  baseURL: "http://192.168.100.215/api/"
+});
 
 const setAuthToken = token => {
   if (token) {
-    // alert(token);
     let promise = AsyncStorage.setItem("token", token);
     promise
       .then(
@@ -28,16 +30,16 @@ export const checkForExpiredToken = () => {
   return dispatch => {
     AsyncStorage.getItem("token").then(token => {
       if (token) {
-        // const currentTime = Date.now() / 1000;
+        const currentTime = Date.now() / 1000;
         const user = jwt_decode(token);
-        //alert(user.username);
+        alert(user.username);
 
-        //if (user.exp >= currentTime) {
-        setAuthToken(token);
-        dispatch(setCurrentUser(user));
-        //}
+        if (user.exp >= currentTime) {
+          setAuthToken(token);
+          dispatch(setCurrentUser(user));
+        }
       } else {
-        alert("no token");
+        logout();
       }
     });
   };
@@ -47,40 +49,35 @@ export const login = (userData, navigation) => {
   return dispatch => {
     instance
       .post("login/", userData)
-      .then(res => {
-        alert("logged");
-        return res.data;
-      })
+      .then(res => res.data)
       .then(user => {
         const decodedUser = jwt_decode(user.token);
         setAuthToken(user.token);
-        return decodedUser;
+        dispatch(setCurrentUser(decodedUser));
       })
-      .then(decodedUser => dispatch(setCurrentUser(decodedUser)))
 
-      .then(() => dispatch(navigation.replace("CoffeeList")))
-      .catch(err => dispatch(setErrors(err.response.data)));
+      .catch(err => console.error(err.response));
   };
 };
 
 export const signup = (userData, navigation) => {
   return dispatch => {
-    axios
+    instance
       .post("register/", userData)
       .then(res => res.data)
       .then(user => {
-        alert("user signed up");
-        dispatch(login(userData, navigation));
+        const decodedUser = jwt_decode(user.token);
+        setAuthToken(user.token);
+        dispatch(setCurrentUser(decodedUser));
       })
-      .catch(err => dispatch(setErrors(err.response.data)));
+      .then(() => dispatch(navigation.replace("ItemList")))
+      .catch(err => console.error(err.response));
   };
 };
 
 export const logout = () => {
   setAuthToken();
-  return {
-    type: actionTypes.LOGOUT_USER
-  };
+  return setCurrentUser(null);
 };
 
 const setCurrentUser = user => {
@@ -91,13 +88,9 @@ const setCurrentUser = user => {
   };
 };
 
-export const setErrors = errors => {
-  return { type: SET_ERROR, payload: errors };
-};
-
 export const fetchProfile = () => {
   return dispatch => {
-    axios
+    instance
       .get(`profile/`)
       .then(res => res.data)
       .then(profile =>
