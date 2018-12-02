@@ -10,17 +10,15 @@ const instance = axios.create({
 
 const setAuthToken = token => {
   if (token) {
-    let promise = AsyncStorage.setItem("token", token);
-    promise
+    return AsyncStorage.setItem("token", token)
       .then(
         () => (axios.defaults.headers.common.Authorization = `jwt ${token}`)
       )
       .catch(err => alert(err));
   } else {
-    AsyncStorage.removeItem("token")
+    return AsyncStorage.removeItem("token")
       .then(() => {
         delete axios.defaults.headers.common.Authorization;
-        alert("here");
       })
       .catch(err => alert(err));
   }
@@ -32,11 +30,8 @@ export const checkForExpiredToken = () => {
       if (token) {
         const currentTime = Date.now() / 1000;
         const user = jwt_decode(token);
-        alert(user.username);
-
         if (user.exp >= currentTime) {
-          setAuthToken(token);
-          dispatch(setCurrentUser(user));
+          setAuthToken(token).then(() => dispatch(setCurrentUser(user)));
         }
       } else {
         logout();
@@ -52,8 +47,10 @@ export const login = (userData, navigation) => {
       .then(res => res.data)
       .then(user => {
         const decodedUser = jwt_decode(user.token);
-        setAuthToken(user.token);
-        dispatch(setCurrentUser(decodedUser));
+        setAuthToken(user.token).then(() =>
+          dispatch(setCurrentUser(decodedUser))
+        );
+        console.log(decodedUser);
       })
 
       .catch(err => console.error(err.response));
@@ -65,12 +62,9 @@ export const signup = (userData, navigation) => {
     instance
       .post("register/", userData)
       .then(res => res.data)
-      .then(user => {
-        const decodedUser = jwt_decode(user.token);
-        setAuthToken(user.token);
-        dispatch(setCurrentUser(decodedUser));
+      .then(() => {
+        dispatch(login(userData));
       })
-      .then(() => dispatch(navigation.replace("ItemList")))
       .catch(err => console.error(err.response));
   };
 };
@@ -83,8 +77,11 @@ export const logout = () => {
 const setCurrentUser = user => {
   return dispatch => {
     dispatch({ type: actionTypes.SET_CURRENT_USER, payload: user });
-    console.log("inside set setCurrentUser");
-    if (user) dispatch(fetchProfile());
+    console.log(user);
+
+    if (user) {
+      dispatch(fetchProfile());
+    }
   };
 };
 
@@ -92,13 +89,14 @@ export const fetchProfile = () => {
   return dispatch => {
     instance
       .get(`profile/`)
-      .then(res => res.data)
-      .then(profile =>
-        dispatch({ type: actionTypes.FETCH_PROFILE, payload: profile })
-      )
-      .then(() => {
-        console.log("profileActions");
+      .then(res => {
+        return res.data;
       })
+      .then(profile => {
+        console.log(profile);
+        return dispatch({ type: actionTypes.FETCH_PROFILE, payload: profile });
+      })
+
       .catch(err => {
         //dispatch(console.log(err.response));
       });

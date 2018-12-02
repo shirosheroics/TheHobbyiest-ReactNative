@@ -66,12 +66,10 @@ class ItemList extends Component {
     );
   }
   render() {
-    // const { itemList } = this.props.itemList;
     let ListItems;
     if (this.props.itemList) {
       ListItems = this.props.itemList.map(item => this.renderItem(item));
     }
-    // console.log(listItems);
     return (
       <Content>
         <List>{ListItems}</List>
@@ -93,7 +91,8 @@ class ItemList extends Component {
 
 const mapStateToProps = state => ({
   itemList: state.item.items,
-  user: state.auth.user
+  user: state.auth.user,
+  prof: state.auth.prof
 });
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(actionCreators.logout())

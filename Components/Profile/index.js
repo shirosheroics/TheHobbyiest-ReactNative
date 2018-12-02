@@ -4,6 +4,19 @@ import { createStackNavigator } from "react-navigation";
 
 // NativeBase Components
 import { Container } from "native-base";
+import {
+  Thumbnail,
+  Text,
+  Button,
+  Left,
+  Body,
+  Right,
+  Icon,
+  List,
+  ListItem,
+  Picker,
+  Content
+} from "native-base";
 
 // Style
 import styles from "./styles";
@@ -24,9 +37,20 @@ class HomePage extends Component {
 
   render() {
     return (
-      <Container style={styles.transparent}>
-        <Nav />
-      </Container>
+      <Content>
+        <Text />
+        <Footer transparent>
+          {this.props.user ? (
+            <Button danger onPress={() => this.props.logout()}>
+              <Text>Logout</Text>
+            </Button>
+          ) : (
+            <Button onPress={() => this.props.navigation.navigate("Login")}>
+              <Text>Login</Text>
+            </Button>
+          )}
+        </Footer>
+      </Content>
     );
   }
 }

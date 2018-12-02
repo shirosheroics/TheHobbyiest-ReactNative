@@ -13,7 +13,7 @@ export default createStackNavigator(
     Login: Login
   },
   {
-    initialRouteName: "Login",
+    initialRouteName: "ItemList",
     navigationOptions: {
       headerTintColor: "white",
       headerStyle: {
