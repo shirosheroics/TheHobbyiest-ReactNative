@@ -23,30 +23,31 @@ class AddressDetail extends Component {
   });
 
   render() {
+    console.log(
+      this.props.navigation.getParam("address", {}) + "Address object"
+    );
     const address = this.props.navigation.getParam("address", {});
     return (
       <Container>
         <Content>
           <Card>
             <CardItem header>
-              <Text>{address.name}</Text>
+              <Text>Name: {address.name}</Text>
             </CardItem>
             <CardItem>
               <Body>
+                <Text>Governorate : {address.governorate}</Text>
                 <Text>
-                  <H2>Governorate : {address.governorate}</H2>
-                  <H3>
-                    Area : {address.area} block : {address.block}
-                  </H3>
-                  <H3>
-                    Street : {address.street} house/building :{" "}
-                    {address.house_building}
-                  </H3>
-                  <H3>
-                    Floor : {address.floor} Appartment : {address.appartment}
-                  </H3>
-                  <H3>Extra Directions : {address.extra_directions}</H3>
+                  Area : {address.area} block : {address.block}
                 </Text>
+                <Text>
+                  Street : {address.street} house/building :{" "}
+                  {address.house_building}
+                </Text>
+                <Text>
+                  Floor : {address.floor} Appartment : {address.appartment}
+                </Text>
+                <Text>Extra Directions : {address.extra_directions}</Text>
               </Body>
             </CardItem>
           </Card>

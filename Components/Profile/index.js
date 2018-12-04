@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createStackNavigator } from "react-navigation";
 import { Col, Row, Grid } from "react-native-easy-grid";
-
+import { Image } from "react-native";
 // NativeBase Components
 import {
   Container,
@@ -20,7 +20,8 @@ import {
   Text,
   H1,
   H2,
-  H3
+  H3,
+  CardItem
 } from "native-base";
 
 // Style
@@ -47,11 +48,13 @@ class Profile extends Component {
           <Col>
             <Header>
               <Left>
-                <Thumbnail
-                  bordered
-                  source={{ uri: prof.img || placeholder }}
-                  style={styles.thumbnail}
-                />
+                <Col>
+                  <Thumbnail
+                    bordered
+                    source={{ uri: prof.img || placeholder }}
+                    style={{ height: 200, width: null, flex: 1 }}
+                  />
+                </Col>
               </Left>
               <Body>
                 <Title>{prof.user.username}</Title>
@@ -67,6 +70,18 @@ class Profile extends Component {
             </H1>
             <Text>Email: {prof.user.email}</Text>
             <Text>Number: {prof.phoneNo}</Text>
+            <Row>
+              <Button
+                onPress={() => this.props.navigation.navigate("AddressList")}
+              >
+                <Text>Addresses</Text>
+              </Button>
+            </Row>
+            <Row>
+              <Button onPress={() => this.props.navigation.navigate("Orders")}>
+                <Text>Orders</Text>
+              </Button>
+            </Row>
           </Col>
         </Row>
         <Text />
