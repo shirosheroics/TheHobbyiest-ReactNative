@@ -1,35 +1,28 @@
 import { StyleSheet } from "react-native";
+import { Font } from "expo";
 
 const styles = StyleSheet.create({
   text: {
-    color: "black",
+    color: "white",
     fontSize: 15,
     marginLeft: 16,
-
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    fontFamily: "open-sans-regular"
   },
-  divider: {
-    borderBottomColor: "black",
-    borderBottomWidth: 1
-  },
-  top: {
-    marginLeft: 0,
-    backgroundColor: "#ffffcc"
-  },
-  middleText: {
+  title: {
     color: "white",
-    fontWeight: "bold",
-    fontSize: 17,
-    alignSelf: "center"
-  },
-  addIcon: {
-    fontSize: 40,
-    fontWeight: "bold",
-    color: "white"
+    fontFamily: "open-sans-bold",
+    backgroundColor: "#000",
+    justifyContent: "flex-start",
+    padding: 16
   },
   item: {
-    color: "white"
+    color: "white",
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#000"
   }
 });
 
