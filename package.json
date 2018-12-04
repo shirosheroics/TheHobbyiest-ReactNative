@@ -16,6 +16,8 @@
     "native-base": "^2.8.1",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
+    "react-native-easy-grid": "^0.2.0",
+    "react-native-numeric-input": "^1.6.3",
     "react-navigation": "^2.17.0",
     "react-redux": "^5.1.1",
     "redux": "^4.0.1",

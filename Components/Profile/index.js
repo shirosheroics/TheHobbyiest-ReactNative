@@ -5,17 +5,19 @@ import { createStackNavigator } from "react-navigation";
 // NativeBase Components
 import { Container } from "native-base";
 import {
+  Container,
   Thumbnail,
-  Text,
+  Header,
+  Title,
+  Content,
+  Footer,
+  FooterTab,
   Button,
   Left,
-  Body,
   Right,
+  Body,
   Icon,
-  List,
-  ListItem,
-  Picker,
-  Content
+  Text
 } from "native-base";
 
 // Style
@@ -27,7 +29,7 @@ import * as actionCreators from "../../store/actions";
 // Navigation
 import Nav from "../Navigation";
 
-class HomePage extends Component {
+class Profile extends Component {
   componentDidMount() {
     const { items } = this.props.items;
     if (!items) {
@@ -38,14 +40,31 @@ class HomePage extends Component {
   render() {
     return (
       <Content>
+        <Header>
+          <Left>
+            <Button transparent>
+              <Icon name="menu" />
+            </Button>
+          </Left>
+          <Body>
+            <Title>Header</Title>
+          </Body>
+          <Right />
+        </Header>
+        <Content>
+          <Text>This is Content Section</Text>
+        </Content>
         <Text />
         <Footer transparent>
           {this.props.user ? (
-            <Button danger onPress={() => this.props.logout()}>
+            <Button full danger onPress={() => this.props.logout()}>
               <Text>Logout</Text>
             </Button>
           ) : (
-            <Button onPress={() => this.props.navigation.navigate("Login")}>
+            <Button
+              full
+              onPress={() => this.props.navigation.navigate("Login")}
+            >
               <Text>Login</Text>
             </Button>
           )}
@@ -65,4 +84,4 @@ const mapActionsToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapActionsToProps
-)(HomePage);
+)(Profile);

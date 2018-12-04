@@ -20,11 +20,12 @@ export default createStackNavigator(
         backgroundColor: "transparent"
       },
       headerTextStyle: {
-        fontWeight: "bold"
+        fontWeight: "bold",
+        color: "white"
       }
     },
     cardStyle: {
-      backgroundColor: "rgb(20,90,100)"
+      backgroundColor: "#73BAE3"
     }
   }
 );
