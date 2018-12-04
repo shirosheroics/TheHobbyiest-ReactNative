@@ -21,6 +21,7 @@ import {
 
 // Style
 import styles from "./styles";
+import { ADD_TO_CART } from "../../store/actions/actionTypes";
 
 class ItemDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -32,10 +33,30 @@ class ItemDetail extends Component {
     this.state = {
       quantity: 1
     };
+    this.addToCart = this.addToCart.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchItemDetail(this.props.navigation.getParam("item").id);
+  }
+
+  addToCart() {
+    let item = this.props.item.id;
+    let cart = this.props.cart;
+    let check = cart.orderItems.find(orderItem => {
+      if (orderItem.item === item) {
+        return orderItem;
+      }
+    });
+    if (check) {
+      this.props.updateOrderItemInCart(
+        check.id,
+        check.quantity + this.state.quantity,
+        this.props.history
+      );
+    } else {
+      this.props.addItemToCart(item, cart.id, this.state.quantity);
+    }
   }
   render() {
     const placeholder =
@@ -51,12 +72,14 @@ class ItemDetail extends Component {
         </Row>
         <Row size={1}>
           <Col>
-            <H1 style={styles.title}>{item.name + "\n"}</H1>
+            <H1 style={styles.title}>Item Name: {item.name + "\n"}</H1>
 
             <View style={styles.item}>
-              <Text style={styles.text}>{item.category + "\n"}</Text>
+              <Text style={styles.text}>Category: {item.category + "\n"}</Text>
               <Text>{item.stock} </Text>
-              <Text style={styles.text}>{item.description + "\n"}</Text>
+              <Text style={styles.text}>
+                Description: {item.description + "\n"}
+              </Text>
               <Row>
                 <NumericInput
                   initValue={this.state.quantity}
@@ -73,7 +96,7 @@ class ItemDetail extends Component {
                     return this.setState({ quantity: value });
                   }}
                 />
-                <Button primary>
+                <Button onPress={() => this.addToCart()} primary>
                   <Text>Add</Text>
                 </Button>
               </Row>
@@ -85,13 +108,26 @@ class ItemDetail extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  item: state.item.item
-});
+const mapStateToProps = state => {
+  return {
+    user: state.auth.user,
+    item: state.item.item,
+    cart: state.cart.cart,
+    items: state.item.items
+  };
+};
 
 const mapActionsToProps = dispatch => {
   return {
-    fetchItemDetail: itemID => dispatch(actionCreators.fetchItemDetail(itemID))
+    fetchItemDetail: itemID => dispatch(actionCreators.fetchItemDetail(itemID)),
+    fetchProfile: () => dispatch(actionCreators.fetchProfile()),
+    addItemToCart: (item_id, order_id, quantity) =>
+      dispatch(actionCreators.createOrderItem(item_id, order_id, quantity)),
+
+    updateOrderItemInCart: (orderItem_id, quantity, history) =>
+      dispatch(
+        actionCreators.updateOrderItemInCart(orderItem_id, quantity, history)
+      )
   };
 };
 

@@ -63,10 +63,10 @@ class Profile extends Component {
         <Row>
           <Col>
             <H1>
-              {prof.user.first_name} {prof.user.last_name}
+              Name: {prof.user.first_name} {prof.user.last_name}
             </H1>
-            <Text>{prof.user.email}</Text>
-            <Text>{prof.phoneNo}</Text>
+            <Text>Email: {prof.user.email}</Text>
+            <Text>Number: {prof.phoneNo}</Text>
           </Col>
         </Row>
         <Text />

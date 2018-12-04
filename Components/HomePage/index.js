@@ -22,6 +22,11 @@ class HomePage extends Component {
       this.props.checkForExpiredToken();
     }
   }
+  componentDidUpdate(prevProps) {
+    if (this.props.profile !== prevProps.profile) {
+      this.props.setCart(this.props.profile);
+    }
+  }
 
   render() {
     return (
@@ -32,12 +37,16 @@ class HomePage extends Component {
   }
 }
 const mapStateToProps = state => ({
-  items: state.item.items
+  items: state.item.items,
+  user: state.auth.user,
+  profile: state.auth.profile
 });
 
 const mapActionsToProps = dispatch => ({
   getItemsList: () => dispatch(actionCreators.fetchItems()),
-  checkForExpiredToken: () => dispatch(actionCreators.checkForExpiredToken())
+  checkForExpiredToken: () => dispatch(actionCreators.checkForExpiredToken()),
+  fetchProfile: user_id => dispatch(actionCreators.fetchProfile(user_id)),
+  setCart: orderList => dispatch(actionCreators.setCart(orderList))
 });
 
 export default connect(

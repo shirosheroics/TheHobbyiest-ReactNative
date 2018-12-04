@@ -8,6 +8,8 @@ import Login from "../Login";
 import Profile from "../Profile";
 import AddressList from "../AddressList";
 import AddressDetail from "../AddressDetail";
+import CartList from "../CartList";
+import Checkout from "../Checkout";
 
 export default createStackNavigator(
   {
@@ -16,7 +18,9 @@ export default createStackNavigator(
     Login: Login,
     Profile: Profile,
     AddressList: AddressList,
-    AddressDetail: AddressDetail
+    AddressDetail: AddressDetail,
+    Cart: CartList,
+    Checkout: Checkout
   },
   {
     initialRouteName: "ItemList",

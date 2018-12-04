@@ -24,10 +24,14 @@ import styles from "./styles";
 class ItemList extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Item List",
-    headerLeft: null,
-    headerRight: (
+    headerLeft: (
       <Button light onPress={() => navigation.navigate("Profile")}>
         <Text>Prof</Text>
+      </Button>
+    ),
+    headerRight: (
+      <Button light onPress={() => navigation.navigate("Cart")}>
+        <Text>Cart</Text>
       </Button>
     )
   });
