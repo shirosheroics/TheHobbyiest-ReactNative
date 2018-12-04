@@ -23,80 +23,53 @@ import styles from "./styles";
 
 class ItemList extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "Item List",
-    headerLeft: null,
-    headerRight: null
+    title: "Address Book"
   });
 
-  handlePress(item) {
-    this.props.navigation.navigate("ItemDetail", {
-      item: item
+  handlePress(address) {
+    this.props.navigation.navigate("AddressDetail", {
+      address: address
     });
   }
 
-  renderItem(item) {
-    const placeholder =
-      "https://www.joysusan.com/wp-content/themes/web-solutions/images/Image-Unavailable.jpg";
+  renderItem(address) {
     return (
-      <TouchableOpacity key={item.id} onPress={() => this.handlePress(item)}>
-        <ImageBackground
-          source={{ uri: item.image || placeholder }}
-          style={styles.background}
-        >
-          <View style={styles.overlay} />
-          <ListItem style={styles.transparent}>
-            <Card style={styles.transparent}>
-              <CardItem style={styles.transparent}>
-                <Left>
-                  <Thumbnail
-                    bordered
-                    source={{ uri: item.image || placeholder }}
-                    style={styles.thumbnail}
-                  />
-                  <Text style={styles.text}>{item.name}</Text>
-                  <Text note style={styles.text}>
-                    {item.price}
-                  </Text>
-                </Left>
-              </CardItem>
-            </Card>
-          </ListItem>
-        </ImageBackground>
-      </TouchableOpacity>
+      <View key={address.id} onPress={() => this.handlePress(address)}>
+        <ListItem>
+          <Card>
+            <CardItem>
+              <Left>
+                <Text style={styles.text}>{address.name}</Text>
+                <Text note style={styles.text}>
+                  {address.governorate}
+                </Text>
+              </Left>
+            </CardItem>
+          </Card>
+        </ListItem>
+      </View>
     );
   }
   render() {
     let ListItems;
-    if (this.props.itemList) {
-      ListItems = this.props.itemList.map(item => this.renderItem(item));
+    if (this.props.prof.addresses) {
+      ListItems = this.props.prof.addresses.map(address =>
+        this.renderItem(address)
+      );
     }
     return (
       <Content>
         <List>{ListItems}</List>
-        <Footer transparent>
-          {this.props.user ? (
-            <Button danger onPress={() => this.props.logout()}>
-              <Text>Logout</Text>
-            </Button>
-          ) : (
-            <Button onPress={() => this.props.navigation.navigate("Login")}>
-              <Text>Login</Text>
-            </Button>
-          )}
-        </Footer>
       </Content>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  itemList: state.item.items,
   user: state.auth.user,
   prof: state.auth.prof
 });
-const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(actionCreators.logout())
-});
+const mapDispatchToProps = dispatch => ({});
 export default connect(
   mapStateToProps,
   mapDispatchToProps

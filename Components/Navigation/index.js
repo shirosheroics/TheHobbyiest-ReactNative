@@ -5,12 +5,18 @@ import { createStackNavigator } from "react-navigation";
 import ItemList from "../ItemList";
 import ItemDetail from "../ItemDetail";
 import Login from "../Login";
+import Profile from "../Profile";
+import AddressList from "../AddressList";
+import AddressDetail from "../AddressDetail";
 
 export default createStackNavigator(
   {
     ItemList: ItemList,
     ItemDetail: ItemDetail,
-    Login: Login
+    Login: Login,
+    Profile: Profile,
+    AddressList: AddressList,
+    AddressDetail: AddressDetail
   },
   {
     initialRouteName: "ItemList",

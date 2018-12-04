@@ -69,7 +69,8 @@ export const signup = (userData, navigation) => {
   };
 };
 
-export const logout = () => {
+export const logout = navigation => {
+  navigation.replace("ItemList");
   setAuthToken();
   return setCurrentUser(null);
 };
@@ -77,7 +78,6 @@ export const logout = () => {
 const setCurrentUser = user => {
   return dispatch => {
     dispatch({ type: actionTypes.SET_CURRENT_USER, payload: user });
-    console.log(user);
 
     if (user) {
       dispatch(fetchProfile());

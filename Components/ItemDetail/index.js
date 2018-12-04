@@ -57,21 +57,26 @@ class ItemDetail extends Component {
               <Text style={styles.text}>{item.category + "\n"}</Text>
               <Text>{item.stock} </Text>
               <Text style={styles.text}>{item.description + "\n"}</Text>
-              <NumericInput
-                initValue={this.state.quantity}
-                minValue={1}
-                step={1}
-                textColor="white"
-                totalWidth={240}
-                totalHeight={50}
-                rounded
-                maxValue={item.stock}
-                value={this.state.quantity}
-                onChange={value => {
-                  console.log(value);
-                  return this.setState({ quantity: value });
-                }}
-              />
+              <Row>
+                <NumericInput
+                  initValue={this.state.quantity}
+                  minValue={1}
+                  step={1}
+                  textColor="white"
+                  totalWidth={240}
+                  totalHeight={50}
+                  rounded
+                  maxValue={item.stock}
+                  value={this.state.quantity}
+                  onChange={value => {
+                    console.log(value);
+                    return this.setState({ quantity: value });
+                  }}
+                />
+                <Button primary>
+                  <Text>Add</Text>
+                </Button>
+              </Row>
             </View>
           </Col>
         </Row>

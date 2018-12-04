@@ -25,8 +25,15 @@ class ItemList extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Item List",
     headerLeft: null,
-    headerRight: null
+    headerRight: (
+      <Button light onPress={() => navigation.navigate("Profile")}>
+        <Text>Prof</Text>
+      </Button>
+    )
   });
+  componenDidMount() {
+    this.props.navigation.setParams({ user: this.props.user });
+  }
 
   handlePress(item) {
     this.props.navigation.navigate("ItemDetail", {
@@ -95,7 +102,7 @@ const mapStateToProps = state => ({
   prof: state.auth.prof
 });
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(actionCreators.logout())
+  logout: nav => dispatch(actionCreators.logout(nav))
 });
 export default connect(
   mapStateToProps,

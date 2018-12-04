@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 
 // NativeBase Components
 import {
@@ -9,38 +8,46 @@ import {
   Card,
   CardItem,
   Text,
-  Body
+  Body,
+  H1,
+  H2,
+  H3
 } from "native-base";
 
 // Style
 import styles from "./styles";
 
-class ItemDetail extends Component {
+class AddressDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam("shop", {}).name,
-    headerLeft: null,
-    headerRight: null
+    title: navigation.getParam("address", {}).name
   });
 
   render() {
-    const placeholder =
-      "https://www.joysusan.com/wp-content/themes/web-solutions/images/Image-Unavailable.jpg";
-    const item = this.props.navigation.getParam("item", {});
+    const address = this.props.navigation.getParam("address", {});
     return (
       <Container>
-        <Header />
         <Content>
           <Card>
             <CardItem header>
-              <Text>NativeBase</Text>
+              <Text>{address.name}</Text>
             </CardItem>
             <CardItem>
               <Body>
-                <Text>Your text here</Text>
+                <Text>
+                  <H2>Governorate : {address.governorate}</H2>
+                  <H3>
+                    Area : {address.area} block : {address.block}
+                  </H3>
+                  <H3>
+                    Street : {address.street} house/building :{" "}
+                    {address.house_building}
+                  </H3>
+                  <H3>
+                    Floor : {address.floor} Appartment : {address.appartment}
+                  </H3>
+                  <H3>Extra Directions : {address.extra_directions}</H3>
+                </Text>
               </Body>
-            </CardItem>
-            <CardItem footer>
-              <Text>GeekyAnts</Text>
             </CardItem>
           </Card>
         </Content>
@@ -49,11 +56,4 @@ class ItemDetail extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
-
-const mapActionsToProps = dispatch => ({});
-
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(ItemDetail);
+export default AddressDetail;
