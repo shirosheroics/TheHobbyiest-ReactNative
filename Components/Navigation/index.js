@@ -10,6 +10,8 @@ import AddressList from "../AddressList";
 import AddressDetail from "../AddressDetail";
 import CartList from "../CartList";
 import Checkout from "../Checkout";
+import OrdersList from "../OrdersList";
+import OrderDetail from "../OrderDetail";
 
 export default createStackNavigator(
   {
@@ -20,7 +22,9 @@ export default createStackNavigator(
     AddressList: AddressList,
     AddressDetail: AddressDetail,
     Cart: CartList,
-    Checkout: Checkout
+    Checkout: Checkout,
+    Orders: OrdersList,
+    OrderDetail: OrderDetail
   },
   {
     initialRouteName: "ItemList",
