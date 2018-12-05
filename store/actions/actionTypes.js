@@ -7,10 +7,10 @@ export const FETCH_ITEM_DETAIL = "FETCH_ITEM_DETAIL";
 export const SET_CART = "SET_CART";
 export const ADD_ITEM = "ADD_ITEM";
 export const ADD_TO_CART = "ADD_TO_CART";
-export const REMOVE_ITEM = "REMOVE_ITEM";
 export const CHECKOUT = "CHECKOUT";
 export const SET_QUANTITY = "SET_QUANTITY";
 export const SET_STOCK = "SET_STOCK";
+export const DELETE_ITEM = "DELETE_ITEM";
 
 //Auth Types
 export const SET_CURRENT_USER = "SET_CURRENT_USER";

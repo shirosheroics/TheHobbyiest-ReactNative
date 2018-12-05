@@ -22,6 +22,8 @@ import {
   Body
 } from "native-base";
 
+import CartDetail from "../CartDetail";
+
 // Style
 import styles from "./styles";
 
@@ -40,72 +42,41 @@ class CartList extends Component {
     )
   });
 
-  handleChange(number, orderItem_id) {
-    const orderItems = this.props.cart;
-    let orderItem = orderItems.find(orderItem => orderItem.id === orderItem_id);
-    let item = this.props.itemList.find(item => item.id === orderItem.item);
-    console.log(item);
-    if (number > item.stock) {
-      alert("Invalid Quantity because required stock unavailable");
-    } else {
-      this.updateQuantity(number, orderItem_id);
-      //   alert("this should add");
-    }
-  }
-
-  updateQuantity(number, orderItem_id) {
-    this.props.updateQuantity(orderItem_id, number, this.props.navigation);
-  }
-
-  renderItem(item, qty, orderItem_id) {
-    return (
-      <ListItem key={item.id}>
-        <Left>
-          <Text style={{ color: "white", marginLeft: 16 }}> {item.name} </Text>
-          <Text note style={{ marginLeft: 16 }}>
-            {item.price}
-          </Text>
-        </Left>
-        <Body>
-          <NumericInput
-            initValue={qty}
-            minValue={1}
-            step={1}
-            textColor="white"
-            totalWidth={240}
-            totalHeight={50}
-            rounded
-            maxValue={item.stock}
-            value={qty}
-            onChange={value => this.handleChange(value, orderItem_id)}
-          />
-          <Text style={{ color: "white" }}>Quantity: {qty}</Text>
-          <Text>Total:{item.price * qty}</Text>
-        </Body>
-        <Right>
-          <Button transparent>
-            <Icon name="trash" style={{ color: "white", fontSize: 21 }} />
-          </Button>
-        </Right>
-      </ListItem>
-    );
-  }
-
   render() {
     let ListItems;
-    let total = 0;
     if (this.props.cart) {
       ListItems = this.props.cart.map(orderitem => {
         let item = this.props.itemList.find(item => item.id === orderitem.item);
-        total += item.price * orderitem.quantity;
-        return this.renderItem(item, orderitem.quantity, orderitem.id);
+        return (
+          <CartDetail
+            item={item}
+            qty={orderitem.quantity}
+            orderItem={orderitem}
+          />
+        );
       });
     }
     return (
       <Content>
         <List>
+          <ListItem>
+            <Row>
+              <Col>
+                <Text> Item </Text>
+              </Col>
+              <Col>
+                <Text> Price </Text>
+              </Col>
+              <Col>
+                <Text> Quantity </Text>
+              </Col>
+              <Col>
+                <Text> Total </Text>
+              </Col>
+            </Row>
+          </ListItem>
+
           {ListItems}
-          <Text>Total: {total}</Text>
           <Button
             onPress={() => this.props.navigation.navigate("Checkout")}
             full

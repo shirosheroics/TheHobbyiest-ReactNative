@@ -10,10 +10,10 @@ export { fetchItemDetail, fetchItems } from "./itemActions";
 
 export {
   setCart,
-  removeItemFromCart,
   checkoutCart,
   createOrderItem,
   setStatus,
   updateOrderItemInCart,
-  setStock
+  setStock,
+  deleteItemFromCart
 } from "./cartActions";

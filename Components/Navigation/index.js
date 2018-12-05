@@ -12,6 +12,8 @@ import CartList from "../CartList";
 import Checkout from "../Checkout";
 import OrdersList from "../OrdersList";
 import OrderDetail from "../OrderDetail";
+import CategoriesList from "../CategoriesList";
+import CategoriesFilter from "../CategoriesFilter";
 
 export default createStackNavigator(
   {
@@ -24,10 +26,13 @@ export default createStackNavigator(
     Cart: CartList,
     Checkout: Checkout,
     Orders: OrdersList,
-    OrderDetail: OrderDetail
+    OrderDetail: OrderDetail,
+    CategoriesFilter: CategoriesFilter,
+    CategoriesList,
+    CategoriesList
   },
   {
-    initialRouteName: "ItemList",
+    initialRouteName: "CategoriesList",
     navigationOptions: {
       headerTintColor: "white",
       headerStyle: {

@@ -14,10 +14,10 @@ export default function(state = initialState, action) {
         cartItems: state.cartItems.concat(action.payload),
         cart: state.cart
       };
-    case actionTypes.REMOVE_ITEM:
+    case actionTypes.DELETE_ITEM:
       return {
         ...state,
-        cartItems: state.cartItems.filter(item => item !== action.payload)
+        cartItems: state.cartItems.filter(item => item.id !== action.payload)
       };
     case actionTypes.CHECKOUT:
       return {

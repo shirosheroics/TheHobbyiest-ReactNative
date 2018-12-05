@@ -5,7 +5,7 @@ import * as actionTypes from "./actionTypes";
 import { AsyncStorage } from "react-native";
 
 const instance = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/"
+  baseURL: "http://192.168.8.105/api/"
 });
 
 const setAuthToken = token => {
