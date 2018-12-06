@@ -1,43 +1,93 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  text: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-    opacity: 1
-  },
-  divider: {
-    borderBottomColor: "black",
-    borderBottomWidth: 1
-  },
-  overlay: {
+  container: {
     flex: 1,
-    position: "absolute",
-    left: 0,
-    right: 0,
+    marginTop: 20
+  },
+  list: {
+    paddingHorizontal: 5,
+    backgroundColor: "#E6E6E6"
+  },
+  listContainer: {
+    alignItems: "center"
+  },
+  /******** card **************/
+  card: {
+    shadowColor: "#00000021",
+    shadowOffset: {
+      width: 0,
+      height: 6
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+    elevation: 12,
 
-    opacity: 0.5,
-    backgroundColor: "black",
-    height: "100%",
-    width: "100%"
-  },
-  transparent: {
-    backgroundColor: "transparent",
-    borderTopWidth: 0,
-    borderRightWidth: 0,
-    borderLeftWidth: 0,
-    borderBottomWidth: 0,
-    flexDirection: "row"
-  },
-  thumbnail: {
+    marginVertical: 5,
     backgroundColor: "white",
-    opacity: 1
+    flexBasis: "46%",
+    marginHorizontal: 5
   },
-  background: {
-    height: 180,
-    width: null,
-    flex: 1
+  cardFooter: {
+    paddingVertical: 17,
+    paddingHorizontal: 16,
+    borderTopLeftRadius: 1,
+    borderTopRightRadius: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  cardContent: {
+    paddingVertical: 12.5,
+    paddingHorizontal: 16
+  },
+  cardHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingTop: 12.5,
+    paddingBottom: 25,
+    paddingHorizontal: 16,
+    borderBottomLeftRadius: 1,
+    borderBottomRightRadius: 1
+  },
+  userImage: {
+    resizeMode: "contain",
+    height: 120,
+    width: 120,
+    borderRadius: 0,
+    alignSelf: "center",
+    borderColor: "#DCDCDC"
+  },
+  name: {
+    fontSize: 18,
+    flex: 1,
+    alignSelf: "center",
+    color: "#008080",
+    fontWeight: "bold"
+  },
+  position: {
+    fontSize: 14,
+    flex: 1,
+    alignSelf: "center",
+    color: "#696969"
+  },
+  followButton: {
+    marginTop: 10,
+    height: 35,
+    width: 100,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 30,
+    backgroundColor: "#00BFFF"
+  },
+  followButtonText: {
+    color: "#FFFFFF",
+    fontSize: 20
+  },
+  icon: {
+    height: 20,
+    width: 20
   }
 });
 export default styles;

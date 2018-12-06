@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 1
   },
   userImage: {
+    resizeMode: "contain",
     height: 120,
     width: 120,
     borderRadius: 60,

@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions";
-import { Image, View } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Alert,
+  ScrollView,
+  FlatList,
+  View
+} from "react-native";
 import NumericInput from "react-native-numeric-input";
 import { Col, Row, Grid } from "react-native-easy-grid";
 
@@ -63,47 +71,91 @@ class ItemDetail extends Component {
       "https://www.joysusan.com/wp-content/themes/web-solutions/images/Image-Unavailable.jpg";
     const item = this.props.item;
     return (
-      <Grid>
-        <Row size={1}>
-          <Image
-            source={{ uri: item.image || placeholder }}
-            style={{ height: 300, width: null, flex: 1 }}
-          />
-        </Row>
-        <Row size={1}>
-          <Col>
-            <H1 style={styles.title}>Item Name: {item.name + "\n"}</H1>
+      <View style={styles.container}>
+        <ScrollView>
+          <View style={{ alignItems: "center", marginHorizontal: 30 }}>
+            <Image
+              style={styles.productImg}
+              source={{
+                uri:
+                  item.image ||
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3v7KDJN7TAoJa5sFaPWcp1HX8JFcpF3z5K3ngz4L6kWoEP7Ca"
+              }}
+            />
+            <Text style={styles.name}>{item.name}</Text>
+            <Text style={styles.price}>{item.price}</Text>
+            <Text style={styles.description}>{item.description}</Text>
+          </View>
 
-            <View style={styles.item}>
-              <Text style={styles.text}>Category: {item.category + "\n"}</Text>
-              <Text>{item.stock} </Text>
-              <Text style={styles.text}>
-                Description: {item.description + "\n"}
-              </Text>
-              <Row>
-                <NumericInput
-                  initValue={this.state.quantity}
-                  minValue={1}
-                  step={1}
-                  textColor="white"
-                  totalWidth={240}
-                  totalHeight={50}
-                  rounded
-                  maxValue={item.stock}
-                  value={this.state.quantity}
-                  onChange={value => {
-                    console.log(value);
-                    return this.setState({ quantity: value });
-                  }}
-                />
-                <Button onPress={() => this.addToCart()} primary>
-                  <Text>Add</Text>
-                </Button>
-              </Row>
-            </View>
-          </Col>
-        </Row>
-      </Grid>
+          <View style={styles.contentSize}>
+            <NumericInput
+              initValue={this.state.quantity}
+              minValue={1}
+              step={1}
+              textColor="white"
+              totalWidth={240}
+              totalHeight={50}
+              rounded
+              maxValue={item.stock}
+              value={this.state.quantity}
+              onChange={value => {
+                console.log(value);
+                return this.setState({ quantity: value });
+              }}
+            />
+          </View>
+          <View style={styles.separator} />
+          <View style={styles.addToCarContainer}>
+            <TouchableOpacity
+              style={styles.shareButton}
+              onPress={() => this.addToCart()}
+            >
+              <Text style={styles.shareButtonText}>Add To Cart</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </View>
+      // <Grid>
+      //   <Row size={1}>
+      //     <Image
+      //       source={{ uri: item.image || placeholder }}
+      //       style={{ height: 300, width: null, flex: 1 }}
+      //     />
+      //   </Row>
+      //   <Row size={1}>
+      //     <Col>
+      //       <H1 style={styles.title}>Item Name: {item.name + "\n"}</H1>
+
+      //       <View style={styles.item}>
+      //         <Text style={styles.text}>Category: {item.category + "\n"}</Text>
+      //         <Text>{item.stock} </Text>
+      //         <Text style={styles.text}>
+      //           Description: {item.description + "\n"}
+      //         </Text>
+      //         <Row>
+      //           <NumericInput
+      //             initValue={this.state.quantity}
+      //             minValue={1}
+      //             step={1}
+      //             textColor="white"
+      //             totalWidth={240}
+      //             totalHeight={50}
+      //             rounded
+      //             maxValue={item.stock}
+      //             value={this.state.quantity}
+      //             onChange={value => {
+      //               console.log(value);
+      //               return this.setState({ quantity: value });
+      //             }}
+      //           />
+      //           <Button onPress={() => this.addToCart()} primary>
+      //             <Text>Add</Text>
+      //           </Button>
+      //         </Row>
+      //       </View>
+      //     </Col>
+      //   </Row>
+      // </Grid>
     );
   }
 }
