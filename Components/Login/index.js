@@ -30,17 +30,7 @@ class Login extends Component {
   }
   componentDidUpdate(prevProps) {
     if (prevProps.user !== this.props.user) {
-      NavigationActions.reset({
-        index: 0,
-        actions: [
-          NavigationActions.navigate({
-            routeName: "BottomTab",
-            action: NavigationActions.navigate({
-              routeName: "HomeTab"
-            })
-          })
-        ]
-      });
+      this.props.navigation.pop();
     }
   }
   render() {
