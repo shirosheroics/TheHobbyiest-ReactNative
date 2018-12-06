@@ -14,33 +14,37 @@ import {
   Input,
   Item,
   Content,
-  Header
+  Header,
+  DatePicker
 } from "native-base";
 
-class Login extends Component {
-  static navigationOptions = {
-    title: "Login"
-  };
+class ProfileUpdate extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: "Profile",
+    headerLeft: (
+      <Button light onPress={() => navigation.navigate("ItemList")}>
+        <Text>List</Text>
+      </Button>
+    ),
+    headerRight: (
+      <Button light onPress={() => navigation.navigate("ProfileUpdate")}>
+        <Text>Edit</Text>
+      </Button>
+    )
+  });
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password: ""
+      phoneNo: this.props.profile.phoneNo,
+      bio: this.props.profile.bio,
+      birth_date: this.props.profile.birth_date,
+      img: this.props.profile.img
     };
   }
+
   componentDidUpdate(prevProps) {
     if (prevProps.user !== this.props.user) {
-      NavigationActions.reset({
-        index: 0,
-        actions: [
-          NavigationActions.navigate({
-            routeName: "BottomTab",
-            action: NavigationActions.navigate({
-              routeName: "HomeTab"
-            })
-          })
-        ]
-      });
+      this.props.navigation.replace("ItemList");
     }
   }
   render() {
@@ -52,7 +56,7 @@ class Login extends Component {
             <Body>
               <Form>
                 <Body>
-                  <Label style={{ color: "white" }}>Username</Label>
+                  <Label style={{ color: "white" }}>Phone Number</Label>
                 </Body>
                 <Item
                   rounded
@@ -65,11 +69,12 @@ class Login extends Component {
                   <Input
                     autoCorrect={false}
                     autoCapitalize="none"
-                    onChangeText={value => this.setState({ username: value })}
+                    placeholder={this.state.phoneNo}
+                    onChangeText={value => this.setState({ phoneNo: value })}
                   />
                 </Item>
                 <Body>
-                  <Label style={{ color: "white" }}>Password</Label>
+                  <Label style={{ color: "white" }}>Biography</Label>
                 </Body>
                 <Item
                   rounded
@@ -79,7 +84,34 @@ class Login extends Component {
                     autoCorrect={false}
                     secureTextEntry
                     autoCapitalize="none"
-                    onChangeText={value => this.setState({ password: value })}
+                    placeholder={this.state.bio}
+                    onChangeText={value => this.setState({ bio: value })}
+                  />
+                </Item>
+                {/* <Body>
+                  <Label style={{ color: "white" }}>Date Of Birth</Label>
+                </Body>
+                <Item
+                  rounded
+                  style={{ backgroundColor: "white", marginTop: 10 }}
+                >
+                  <DatePicker
+                    defaultDate={this.state.birth_date}
+                    onDateChange={value => this.setState({ birth_date: value })}
+                  />
+                </Item> */}
+                <Body>
+                  <Label style={{ color: "white" }}>Upload Image</Label>
+                </Body>
+                <Item
+                  rounded
+                  style={{ backgroundColor: "white", marginTop: 10 }}
+                >
+                  <Input
+                    autoCorrect={false}
+                    secureTextEntry
+                    autoCapitalize="none"
+                    onChangeText={value => this.setState({ img: value })}
                   />
                 </Item>
               </Form>
@@ -109,7 +141,8 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.auth.user
+  user: state.auth.user,
+  profile: state.auth.profile
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -122,4 +155,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Login);
+)(ProfileUpdate);

@@ -1,5 +1,9 @@
 import React from "react";
-import { createStackNavigator } from "react-navigation";
+import {
+  createStackNavigator,
+  createBottomTabNavigator
+} from "react-navigation";
+import { Icon } from "native-base";
 
 // Components
 import ItemList from "../ItemList";
@@ -14,22 +18,16 @@ import OrdersList from "../OrdersList";
 import OrderDetail from "../OrderDetail";
 import CategoriesList from "../CategoriesList";
 import CategoriesFilter from "../CategoriesFilter";
+import ProfileUpdate from "../ProfileUpdate";
 
-export default createStackNavigator(
+const HomeStack = createStackNavigator(
   {
-    ItemList: ItemList,
     ItemDetail: ItemDetail,
     Login: Login,
-    Profile: Profile,
-    AddressList: AddressList,
-    AddressDetail: AddressDetail,
     Cart: CartList,
     Checkout: Checkout,
-    Orders: OrdersList,
-    OrderDetail: OrderDetail,
     CategoriesFilter: CategoriesFilter,
-    CategoriesList,
-    CategoriesList
+    CategoriesList: CategoriesList
   },
   {
     initialRouteName: "CategoriesList",
@@ -48,3 +46,94 @@ export default createStackNavigator(
     }
   }
 );
+
+const ItemsStack = createStackNavigator(
+  {
+    ItemList: ItemList,
+    ItemDetail: ItemDetail,
+    Cart: CartList,
+    Checkout: Checkout,
+    Login: Login
+  },
+  {
+    navigationOptions: {
+      headerTintColor: "white",
+      headerStyle: {
+        backgroundColor: "transparent"
+      },
+      headerTextStyle: {
+        fontWeight: "bold"
+      }
+    },
+    cardStyle: {
+      backgroundColor: "#28292F"
+    }
+  }
+);
+const ProfileStack = createStackNavigator(
+  {
+    Profile: Profile,
+    ProfileUpdate: ProfileUpdate,
+    AddressList: AddressList,
+    AddressDetail: AddressDetail,
+    Orders: OrdersList,
+    OrderDetail: OrderDetail,
+    Cart: CartList,
+    Checkout: Checkout,
+    CategoriesList: CategoriesList,
+    Login: Login
+  },
+  {
+    navigationOptions: {
+      headerTintColor: "white",
+      headerStyle: {
+        backgroundColor: "transparent"
+      },
+      headerTextStyle: {
+        fontWeight: "bold"
+      }
+    },
+    cardStyle: {
+      backgroundColor: "#28292F"
+    }
+  }
+);
+
+const BottomTab = createBottomTabNavigator(
+  {
+    HomeTab: HomeStack,
+    ItemTab: ItemsStack,
+    ProfileTab: ProfileStack
+  },
+  {
+    navigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ tintColor }) => {
+        const { routeName } = navigation.state;
+        let iconName;
+        if (routeName === "HomeTab") {
+          iconName = "home";
+          iconType = "Feather";
+        } else if (routeName === "ItemTab") {
+          iconName = "search";
+          iconType = "Feather";
+        } else if (routeName === "ProfileTab") {
+          iconName = "user";
+          iconType = "Feather";
+        }
+        return (
+          <Icon name={iconName} style={{ color: tintColor }} type={iconType} />
+        );
+      }
+    }),
+    tabBarOptions: {
+      showLabel: false,
+      activeTintColor: "grey",
+      inactiveTintColor: "grey",
+      style: {
+        backgroundColor: "black"
+      }
+    }
+  }
+);
+
+export default BottomTab;

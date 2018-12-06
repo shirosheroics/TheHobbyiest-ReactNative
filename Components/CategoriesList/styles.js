@@ -24,6 +24,13 @@ const styles = StyleSheet.create({
   },
   transparent: {
     backgroundColor: "transparent",
+    // backgroundColor: "#1fc8db",
+    // backgroundImage: linearGradient(
+    //   "141deg",
+    //   "#e4d700 0%",
+    //   "#1fc8db 51%",
+    //   "#2cb5e8 75%"
+    // ),
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderLeftWidth: 0,

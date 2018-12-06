@@ -42,6 +42,10 @@ class CartList extends Component {
     )
   });
 
+  // componentDidUpdate(prevProps){
+  //   if()
+  // }
+
   render() {
     let ListItems;
     if (this.props.cart) {

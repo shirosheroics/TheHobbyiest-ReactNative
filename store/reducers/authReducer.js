@@ -20,6 +20,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         error: action.payload
       };
+    case actionTypes.UPDATE_PROFILE:
+      return {
+        ...state,
+        profile: action.payload
+      };
     case actionTypes.FETCH_PROFILE:
       return {
         ...state,

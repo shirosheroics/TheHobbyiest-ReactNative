@@ -1,54 +1,59 @@
 import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#5cd6d6",
-    opacity: 0.6
-  },
-  topheader: {
-    backgroundColor: "#5cd6d6",
-    opacity: 0
-  },
-  icon: {
-    color: "white",
-    fontSize: 17,
-    opacity: 1
-  },
-  footericon: {
-    color: "white",
-    fontSize: 18
-  },
-  text: {
-    color: "white",
-    fontSize: 15,
-    marginTop: 19,
-    opacity: 1
-  },
   header: {
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 17,
-    marginTop: 10,
-    opacity: 1
+    backgroundColor: "#00BFFF",
+    height: 200
   },
-  footerbutton: {
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 17
-  },
-  footer: {
-    backgroundColor: "#5cd6d6",
-    opacity: 0.6
-  },
-  overlay: {
+  avatar: {
+    width: 130,
+    height: 130,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "white",
+    marginBottom: 10,
+    alignSelf: "center",
     position: "absolute",
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    backgroundColor: "rgb(8,80,129)",
-    opacity: 0.6
+    marginTop: 130
   },
-  background: { height: "100%", width: "100%", flex: 1 },
-  transparent: { backgroundColor: "transparent" }
+  name: {
+    fontSize: 22,
+    color: "#FFFFFF",
+    fontWeight: "600"
+  },
+  body: {
+    marginTop: 40
+  },
+  bodyContent: {
+    // flex: 1,
+    alignItems: "center",
+    padding: 30
+  },
+  name: {
+    fontSize: 28,
+    color: "#696969",
+    fontWeight: "600"
+  },
+  info: {
+    fontSize: 16,
+    color: "#00BFFF",
+    marginTop: 10
+  },
+  description: {
+    fontSize: 16,
+    color: "#696969",
+    marginTop: 10,
+    textAlign: "center"
+  },
+  buttonContainer: {
+    marginTop: 10,
+    height: 45,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+    width: 250,
+    borderRadius: 30,
+    backgroundColor: "#00BFFF"
+  }
 });
 export default styles;

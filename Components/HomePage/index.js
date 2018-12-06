@@ -25,6 +25,7 @@ class HomePage extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.profile !== prevProps.profile) {
       this.props.setCart(this.props.profile);
+      // this.props.fetchProfile();
     }
   }
 
@@ -45,7 +46,7 @@ const mapStateToProps = state => ({
 const mapActionsToProps = dispatch => ({
   getItemsList: () => dispatch(actionCreators.fetchItems()),
   checkForExpiredToken: () => dispatch(actionCreators.checkForExpiredToken()),
-  fetchProfile: user_id => dispatch(actionCreators.fetchProfile(user_id)),
+  fetchProfile: () => dispatch(actionCreators.fetchProfile()),
   setCart: orderList => dispatch(actionCreators.setCart(orderList))
 });
 

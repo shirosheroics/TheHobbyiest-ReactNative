@@ -1,6 +1,7 @@
 import React from "react";
 import { Font, AppLoading } from "expo";
 import { Provider } from "react-redux";
+import { LinearGradient } from "expo";
 
 // Store
 import store from "./store";

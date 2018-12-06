@@ -5,7 +5,7 @@ import * as actionTypes from "./actionTypes";
 import { AsyncStorage } from "react-native";
 
 const instance = axios.create({
-  baseURL: "http://192.168.8.105/api/"
+  baseURL: "http://192.168.100.39/api/"
 });
 
 const setAuthToken = token => {
@@ -73,6 +73,7 @@ export const signup = (userData, navigation) => {
 export const logout = navigation => {
   // navigation.replace("ItemList");
   setAuthToken();
+  // navigation.navigate("HomeTab");
   return setCurrentUser(null);
 };
 
@@ -83,6 +84,26 @@ const setCurrentUser = user => {
     if (user) {
       dispatch(fetchProfile());
     }
+  };
+};
+
+export const updateProfile = (user_id, profile, navigation) => {
+  return dispatch => {
+    axios
+      .put(`http://192.168.100.39/api/profile/${user_id}/update/`, profile)
+      .then(res => res.data)
+      .then(profile => {
+        dispatch({
+          type: actionTypes.UPDATE_PROFILE,
+          payload: profile
+        });
+      })
+      .then(() => {
+        navigation.navigate("Profile");
+      })
+      .catch(err => {
+        dispatch(console.log(err.response));
+      });
   };
 };
 

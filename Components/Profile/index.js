@@ -1,27 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createStackNavigator } from "react-navigation";
+// import { createStackNavigator } from "react-navigation";
 import { Col, Row, Grid } from "react-native-easy-grid";
-import { Image } from "react-native";
+import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
 // NativeBase Components
 import {
-  Container,
-  Thumbnail,
-  Header,
-  Title,
-  Content,
-  Footer,
-  FooterTab,
-  Button,
-  Left,
-  Right,
-  Body,
-  Icon,
-  Text,
-  H1,
-  H2,
-  H3,
-  CardItem
+  //   Container,
+  //   Thumbnail,
+  //   Header,
+  //   Title,
+  //   Content,
+  //   Footer,
+  //   FooterTab,
+  //   Button,
+  //   Left,
+  //   Right,
+  //   Body,
+  //   Icon,
+  Text
+  //   H1,
+  //   H2,
+  //   H3,
+  //   CardItem
 } from "native-base";
 
 // Style
@@ -33,73 +33,70 @@ import * as actionCreators from "../../store/actions";
 // Navigation
 
 class Profile extends Component {
-  componentDidMount() {}
   static navigationOptions = ({ navigation }) => ({
     title: "Profile"
+    // headerLeft: (
+    //   // <Button light onPress={() => navigation.navigate("ItemList")}>
+    //   //   <Text>List</Text>
+    //   // </Button>
+    // ),
+    // headerRight: (
+    //   // <Button light onPress={() => navigation.navigate("ProfileUpdate")}>
+    //   //   <Text>Edit</Text>
+    //   // </Button>
+    // )
   });
+
+  componentDidMount() {
+    // if (!this.props.user) {
+    //   this.props.navigation.navigate({ routName: "HomeTab" });
+    // }
+  }
 
   render() {
     const placeholder =
       "https://www.joysusan.com/wp-content/themes/web-solutions/images/Image-Unavailable.jpg";
     const prof = this.props.prof;
+    console.log(prof.phoneNo + "PROFILE");
     return (
-      <Grid>
-        <Row>
-          <Col>
-            <Header>
-              <Left>
-                <Col>
-                  <Thumbnail
-                    bordered
-                    source={{ uri: prof.img || placeholder }}
-                    style={{ height: 200, width: null, flex: 1 }}
-                  />
-                </Col>
-              </Left>
-              <Body>
-                <Title>{prof.user.username}</Title>
-              </Body>
-              <Right />
-            </Header>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <H1>
-              Name: {prof.user.first_name} {prof.user.last_name}
-            </H1>
-            <Text>Email: {prof.user.email}</Text>
-            <Text>Number: {prof.phoneNo}</Text>
-            <Row>
-              <Button
-                onPress={() => this.props.navigation.navigate("AddressList")}
-              >
-                <Text>Addresses</Text>
-              </Button>
-            </Row>
-            <Row>
-              <Button onPress={() => this.props.navigation.navigate("Orders")}>
-                <Text>Orders</Text>
-              </Button>
-            </Row>
-          </Col>
-        </Row>
-        <Text />
+      <View style={styles.container}>
+        <View style={styles.header} />
+        <Image
+          style={styles.avatar}
+          source={{ uri: prof.img || placeholder }}
+        />
+        <View style={styles.body}>
+          <View style={styles.bodyContent}>
+            <Text style={styles.name}>
+              {this.props.user.username.toUpperCase()}
+            </Text>
+            <Text style={styles.info}>Number {prof.phoneNo}</Text>
+            <Text style={styles.info}>Email {prof.user.email}</Text>
+            <Text style={styles.info}>Date Of Birth: {prof.birth_date}</Text>
+            <Text style={styles.description}>Biography: {prof.bio}</Text>
 
-        {this.props.user ? (
-          <Button
-            full
-            danger
-            onPress={() => this.props.logout(this.props.navigation)}
-          >
-            <Text>Logout</Text>
-          </Button>
-        ) : (
-          <Button full onPress={() => this.props.navigation.navigate("Login")}>
-            <Text>Login</Text>
-          </Button>
-        )}
-      </Grid>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("AddressList")}
+              style={styles.buttonContainer}
+            >
+              <Text>Addresses</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("Orders")}
+              style={styles.buttonContainer}
+            >
+              <Text>Orders</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              danger
+              onPress={() => this.props.logout(this.props.navigation)}
+              style={styles.buttonContainer}
+            >
+              <Text>Logout</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
     );
   }
 }

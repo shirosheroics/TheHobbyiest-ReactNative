@@ -159,7 +159,11 @@ class Checkout extends Component {
           </Item>
         </Form>
         <Grid>
-          <Row>{this.checkoutDetail(this.props.cart)}</Row>
+          <Row>
+            {this.checkoutDetail(
+              this.props.profile.orders.find(order => order.status === "C")
+            )}
+          </Row>
           <Row>
             <Button primary onPress={() => this.confirmHandler()}>
               <Text>Confirm</Text>
