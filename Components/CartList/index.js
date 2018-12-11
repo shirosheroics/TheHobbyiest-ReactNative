@@ -29,17 +29,7 @@ import styles from "./styles";
 
 class CartList extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "Item List",
-    headerLeft: (
-      <Button light onPress={() => navigation.navigate("Profile")}>
-        <Text>Prof</Text>
-      </Button>
-    ),
-    headerRight: (
-      <Button light onPress={() => navigation.navigate("Cart")}>
-        <Text>Cart</Text>
-      </Button>
-    )
+    title: "Cart List"
   });
 
   // componentDidUpdate(prevProps){
@@ -89,17 +79,6 @@ class CartList extends Component {
             <Text>Checkout</Text>
           </Button>
         </List>
-        <Footer transparent>
-          {this.props.user ? (
-            <Button danger onPress={() => this.props.logout()}>
-              <Text>Logout</Text>
-            </Button>
-          ) : (
-            <Button onPress={() => this.props.navigation.navigate("Login")}>
-              <Text>Login</Text>
-            </Button>
-          )}
-        </Footer>
       </Content>
     );
   }

@@ -8,7 +8,7 @@ import { fetchProfile } from "./authActions";
 export const createOrder = () => {
   return dispatch => {
     axios
-      .post("http://192.168.100.39/api/order/create/")
+      .post("http://192.168.8.105/api/order/create/")
       .then(res => res.data)
       .then(cart => {
         dispatch({
@@ -25,7 +25,7 @@ export const createOrder = () => {
 export const createOrderItem = (item_id, order_id, quantity) => {
   return dispatch => {
     axios
-      .post("http://192.168.100.39/api/orderitem/create/", {
+      .post("http://192.168.8.105/api/orderitem/create/", {
         item: item_id,
         order: order_id,
         quantity: quantity
@@ -60,7 +60,7 @@ export const setStock = (item, quantity) => {
   return dispatch => {
     console.log("stock update");
     axios
-      .put(`http://192.168.100.39/api/item/${item.id}/stock-update/`, {
+      .put(`http://192.168.8.105/api/item/${item.id}/stock-update/`, {
         stock: item.stock - quantity
       })
       .then(res => {
@@ -75,7 +75,7 @@ export const setStock = (item, quantity) => {
 export const deleteItemFromCart = orderItem_id => {
   return dispatch => {
     axios
-      .delete(`http://192.168.100.39/api/orderitem/${orderItem_id}/delete/`)
+      .delete(`http://192.168.8.105/api/orderitem/${orderItem_id}/delete/`)
       .then(res => {
         console.log(res.data + "data returned");
         dispatch({ type: actionTypes.DELETE_ITEM, payload: orderItem_id });
@@ -90,7 +90,7 @@ export const setStatus = (order_id, status, navigation, address_id) => {
   return dispatch => {
     console.log("TEST");
     axios
-      .put(`http://192.168.100.39/api/order/${order_id}/status-update/`, {
+      .put(`http://192.168.8.105/api/order/${order_id}/status-update/`, {
         status: status,
         address: address_id
       })
@@ -117,7 +117,7 @@ export const updateOrderItemInCart = (orderItem_id, quantity, navigation) => {
   return dispatch => {
     axios
       .put(
-        `http://192.168.100.39/api/orderitem/${orderItem_id}/quantity-update/`,
+        `http://192.168.8.105/api/orderitem/${orderItem_id}/quantity-update/`,
         {
           quantity: quantity
         }

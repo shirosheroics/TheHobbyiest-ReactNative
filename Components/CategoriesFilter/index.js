@@ -12,21 +12,9 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions";
-
+import { Icon } from "native-base";
 // NativeBase Components
-import {
-  //   List,
-  //   ListItem,
-  //   Card,
-  //   CardItem,
-  Button
-  //   Thumbnail,
-  //   Text,
-  //   Left,
-  //   Content,
-  //   Icon,
-  //   Footer
-} from "native-base";
+import { Button } from "native-base";
 
 // Style
 import styles from "./styles";
@@ -35,14 +23,20 @@ class CategoriesFilter extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Category",
     headerLeft: (
-      <Button light onPress={() => navigation.navigate("Profile")}>
-        <Text>Prof</Text>
-      </Button>
+      <Icon
+        type="Entypo"
+        name="grid"
+        light
+        onPress={() => navigation.navigate("CategoriesList")}
+      />
     ),
     headerRight: (
-      <Button light onPress={() => navigation.navigate("Cart")}>
-        <Text>Cart</Text>
-      </Button>
+      <Icon
+        type="Entypo"
+        name="shopping-cart"
+        light
+        onPress={() => navigation.navigate("Cart")}
+      />
     )
   });
   componenDidMount() {
@@ -55,37 +49,24 @@ class CategoriesFilter extends Component {
     });
   }
 
-  //   renderItem(item) {
-  //     const placeholder =
-  //       "https://www.joysusan.com/wp-content/themes/web-solutions/images/Image-Unavailable.jpg";
-  //     return (
-  //       <TouchableOpacity key={item.id} onPress={() => this.handlePress(item)}>
-  //         <ImageBackground
-  //           source={{ uri: item.image || placeholder }}
-  //           style={styles.background}
-  //         >
-  //           <View style={styles.overlay} />
-  //           <ListItem style={styles.transparent}>
-  //             <Card style={styles.transparent}>
-  //               <CardItem style={styles.transparent}>
-  //                 <Left>
-  //                   <Thumbnail
-  //                     bordered
-  //                     source={{ uri: item.image || placeholder }}
-  //                     style={styles.thumbnail}
-  //                   />
-  //                   <Text style={styles.text}>{item.name}</Text>
-  //                   <Text note style={styles.text}>
-  //                     {item.price}
-  //                   </Text>
-  //                 </Left>
-  //               </CardItem>
-  //             </Card>
-  //           </ListItem>
-  //         </ImageBackground>
-  //       </TouchableOpacity>
-  //     );
-  //   }
+  addToCart(item_id) {
+    let cart = this.props.cart;
+    let check = cart.orderItems.find(orderItem => {
+      if (orderItem.item === item_id) {
+        return orderItem;
+      }
+    });
+    if (check) {
+      this.props.updateOrderItemInCart(
+        check.id,
+        check.quantity + 1,
+        this.props.navigation
+      );
+    } else {
+      this.props.addItemToCart(item_id, cart.id, 1);
+    }
+  }
+
   render() {
     let itemList = this.props.items.filter(item => {
       return item.category === this.props.navigation.getParam("category");
@@ -148,8 +129,11 @@ class CategoriesFilter extends Component {
                   >
                     <Text style={styles.name}>{item.name}</Text>
                     <Text style={styles.position}>{item.price}</Text>
-                    <TouchableOpacity style={styles.followButton}>
-                      <Text style={styles.followButtonText}>Add</Text>
+                    <TouchableOpacity
+                      style={styles.followButton}
+                      onPress={() => this.addToCart(item.id)}
+                    >
+                      <Icon type="FontAwesome" name="cart-plus" light />
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -165,10 +149,17 @@ class CategoriesFilter extends Component {
 const mapStateToProps = state => ({
   items: state.item.items,
   user: state.auth.user,
-  prof: state.auth.prof
+  prof: state.auth.prof,
+  cart: state.cart.cart
 });
 const mapDispatchToProps = dispatch => ({
-  logout: nav => dispatch(actionCreators.logout(nav))
+  addItemToCart: (item_id, order_id, quantity) =>
+    dispatch(actionCreators.createOrderItem(item_id, order_id, quantity)),
+  logout: nav => dispatch(actionCreators.logout(nav)),
+  updateOrderItemInCart: (orderItem_id, quantity, navigation) =>
+    dispatch(
+      actionCreators.updateOrderItemInCart(orderItem_id, quantity, navigation)
+    )
 });
 export default connect(
   mapStateToProps,

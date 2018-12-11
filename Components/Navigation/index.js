@@ -32,17 +32,17 @@ const HomeStack = createStackNavigator(
   {
     initialRouteName: "CategoriesList",
     navigationOptions: {
-      headerTintColor: "white",
+      headerTintColor: "black",
       headerStyle: {
-        backgroundColor: "transparent"
+        backgroundColor: "white"
       },
       headerTextStyle: {
         fontWeight: "bold",
-        color: "white"
+        color: "black"
       }
     },
     cardStyle: {
-      backgroundColor: "#73BAE3"
+      backgroundColor: "gray"
     }
   }
 );
@@ -57,7 +57,7 @@ const ItemsStack = createStackNavigator(
   },
   {
     navigationOptions: {
-      headerTintColor: "white",
+      headerTintColor: "black",
       headerStyle: {
         backgroundColor: "transparent"
       },

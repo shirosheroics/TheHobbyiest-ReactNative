@@ -29,14 +29,7 @@ class OrdersList extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Addresses",
     headerLeft: (
-      <Button light onPress={() => navigation.navigate("Profile")}>
-        <Text>Prof</Text>
-      </Button>
-    ),
-    headerRight: (
-      <Button light onPress={() => navigation.navigate("Cart")}>
-        <Text>Add</Text>
-      </Button>
+      <Icon type="Entypo" name="user" light onPress={() => navigation.pop()} />
     )
   });
 

@@ -5,7 +5,7 @@ import * as actionTypes from "./actionTypes";
 import { AsyncStorage } from "react-native";
 
 const instance = axios.create({
-  baseURL: "http://192.168.100.39/api/"
+  baseURL: "http://192.168.8.105/api/"
 });
 
 const setAuthToken = token => {
@@ -72,8 +72,8 @@ export const signup = (userData, navigation) => {
 
 export const logout = navigation => {
   // navigation.replace("ItemList");
+  navigation.navigate("CategoriesList");
   setAuthToken();
-  // navigation.navigate("HomeTab");
   return setCurrentUser(null);
 };
 

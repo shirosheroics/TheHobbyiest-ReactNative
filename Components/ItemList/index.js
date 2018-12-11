@@ -3,7 +3,6 @@
 import React, { Component } from "react";
 import {
   StyleSheet,
-  Text,
   View,
   TouchableOpacity,
   Image,
@@ -13,6 +12,7 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions";
+import { Text, Icon } from "native-base";
 
 // NativeBase Components
 import { Button } from "native-base";
@@ -24,14 +24,20 @@ class ItemList extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Item List",
     headerLeft: (
-      <Button light onPress={() => navigation.navigate("Profile")}>
-        <Text>Prof</Text>
-      </Button>
+      <Icon
+        type="Entypo"
+        name="grid"
+        light
+        onPress={() => navigation.navigate("CategoriesList")}
+      />
     ),
     headerRight: (
-      <Button light onPress={() => navigation.navigate("Cart")}>
-        <Text>Cart</Text>
-      </Button>
+      <Icon
+        type="Entypo"
+        name="shopping-cart"
+        light
+        onPress={() => navigation.navigate("Cart")}
+      />
     )
   });
   componenDidMount() {
@@ -42,6 +48,23 @@ class ItemList extends Component {
     this.props.navigation.navigate("ItemDetail", {
       item: item
     });
+  }
+  addToCart(item_id) {
+    let cart = this.props.cart;
+    let check = cart.orderItems.find(orderItem => {
+      if (orderItem.item === item_id) {
+        return orderItem;
+      }
+    });
+    if (check) {
+      this.props.updateOrderItemInCart(
+        check.id,
+        check.quantity + 1,
+        this.props.navigation
+      );
+    } else {
+      this.props.addItemToCart(item_id, cart.id, 1);
+    }
   }
 
   render() {
@@ -85,8 +108,11 @@ class ItemList extends Component {
                   >
                     <Text style={styles.name}>{item.name}</Text>
                     <Text style={styles.position}>{item.price}</Text>
-                    <TouchableOpacity style={styles.followButton}>
-                      <Text style={styles.followButtonText}>Add</Text>
+                    <TouchableOpacity
+                      style={styles.followButton}
+                      onPress={() => this.addToCart(item.id)}
+                    >
+                      <Icon type="FontAwesome" name="cart-plus" light />
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -102,9 +128,16 @@ class ItemList extends Component {
 const mapStateToProps = state => ({
   itemList: state.item.items,
   user: state.auth.user,
-  prof: state.auth.prof
+  prof: state.auth.prof,
+  cart: state.cart.cart
 });
 const mapDispatchToProps = dispatch => ({
+  updateOrderItemInCart: (orderItem_id, quantity, navigation) =>
+    dispatch(
+      actionCreators.updateOrderItemInCart(orderItem_id, quantity, navigation)
+    ),
+  addItemToCart: (item_id, order_id, quantity) =>
+    dispatch(actionCreators.createOrderItem(item_id, order_id, quantity)),
   logout: nav => dispatch(actionCreators.logout(nav))
 });
 export default connect(

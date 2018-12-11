@@ -23,16 +23,14 @@ import styles from "./styles";
 
 class CategoriesList extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "Item List",
-    headerLeft: (
-      <Button light onPress={() => navigation.navigate("Profile")}>
-        <Text>Prof</Text>
-      </Button>
-    ),
+    title: "Categories",
     headerRight: (
-      <Button light onPress={() => navigation.navigate("Cart")}>
-        <Text>Cart</Text>
-      </Button>
+      <Icon
+        type="Entypo"
+        name="login"
+        light
+        onPress={() => navigation.navigate("Login")}
+      />
     )
   });
   componenDidMount() {
@@ -80,7 +78,7 @@ class CategoriesList extends Component {
     const placeholder =
       "https://www.joysusan.com/wp-content/themes/web-solutions/images/Image-Unavailable.jpg";
     return (
-      <Content>
+      <Content transparent>
         <List>
           {/* For tech filtering */}
           <TouchableOpacity
@@ -228,17 +226,6 @@ class CategoriesList extends Component {
             </ImageBackground>
           </TouchableOpacity>
         </List>
-        <Footer transparent>
-          {this.props.user ? (
-            <Button danger onPress={() => this.props.logout()}>
-              <Text>Logout</Text>
-            </Button>
-          ) : (
-            <Button onPress={() => this.props.navigation.navigate("Login")}>
-              <Text>Login</Text>
-            </Button>
-          )}
-        </Footer>
       </Content>
     );
   }

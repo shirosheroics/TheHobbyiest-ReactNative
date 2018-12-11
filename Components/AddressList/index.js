@@ -1,9 +1,17 @@
 import React, { Component } from "react";
-import { ImageBackground, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  // Text,
+  View,
+  Image,
+  TouchableOpacity,
+  FlatList,
+  Dimensions,
+  Modal,
+  ScrollView
+} from "react-native";
 import { connect } from "react-redux";
-import * as actionCreators from "../../store/actions";
-import { Col, Row, Grid } from "react-native-easy-grid";
-import NumericInput from "react-native-numeric-input";
+
 // NativeBase Components
 import {
   Container,
@@ -26,73 +34,118 @@ import {
 import styles from "./styles";
 
 class AddressList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalVisible: false,
+      addressSelected: []
+    };
+  }
+
+  clickEventListener = item => {
+    this.setState({ addressSelected: item }, () => {
+      this.setModalVisible(true);
+    });
+  };
+
+  setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
+  }
+
   static navigationOptions = ({ navigation }) => ({
     title: "Addresses",
     headerLeft: (
-      <Button light onPress={() => navigation.navigate("Profile")}>
-        <Text>Prof</Text>
-      </Button>
-    ),
-    headerRight: (
-      <Button light onPress={() => navigation.navigate("Cart")}>
-        <Text>Add</Text>
-      </Button>
+      <Icon type="Entypo" name="user" light onPress={() => navigation.pop()} />
     )
   });
 
-  renderItem(address) {
-    return (
-      <ListItem
-        key={address.id}
-        onPress={() => {
-          return this.props.navigation.navigate("AddressDetail", {
-            address: address
-          });
-        }}
-      >
-        <Left>
-          <Text style={{ color: "white", marginLeft: 16 }}>
-            {" "}
-            Name: {address.name}{" "}
-          </Text>
-          <Text note style={{ marginLeft: 16 }}>
-            Governorate: {address.governorate}
-          </Text>
-        </Left>
-        <Body>
-          <Text style={{ color: "white" }}>Area: {address.area}</Text>
-        </Body>
-        <Right>
-          <Button transparent>
-            <Icon name="trash" style={{ color: "white", fontSize: 21 }} />
-          </Button>
-        </Right>
-      </ListItem>
-    );
-  }
-
   render() {
-    let AddressesList;
-    if (this.props.prof) {
-      AddressesList = this.props.prof.addresses.map(address => {
-        return this.renderItem(address);
-      });
-    }
     return (
-      <Content>
-        <List>{AddressesList}</List>
-        <Footer transparent>
-          {this.props.user ? (
-            <Button danger onPress={() => this.props.logout()}>
-              <Text>Logout</Text>
-            </Button>
-          ) : (
-            <Button onPress={() => this.props.navigation.navigate("Login")}>
-              <Text>Login</Text>
-            </Button>
-          )}
-        </Footer>
-      </Content>
+      <View style={styles.container}>
+        <FlatList
+          style={styles.userList}
+          columnWrapperStyle={styles.listContainer}
+          data={this.props.prof.addresses}
+          keyExtractor={item => {
+            return item.id;
+          }}
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity
+                style={styles.card}
+                onPress={() => {
+                  this.clickEventListener(item);
+                }}
+              >
+                <View style={styles.cardContent}>
+                  <Text style={styles.name}>{item.name}</Text>
+                  <Text style={styles.position}>{item.area}</Text>
+                  <TouchableOpacity
+                    style={styles.followButton}
+                    onPress={() => this.clickEventListener(item)}
+                  >
+                    <Text style={styles.followButtonText}>View</Text>
+                  </TouchableOpacity>
+                </View>
+              </TouchableOpacity>
+            );
+          }}
+        />
+
+        <Modal
+          animationType={"fade"}
+          transparent={true}
+          onRequestClose={() => this.setModalVisible(false)}
+          visible={this.state.modalVisible}
+        >
+          <View style={styles.popupOverlay}>
+            <View style={styles.popup}>
+              <View style={styles.popupContent}>
+                <ScrollView contentContainerStyle={styles.modalInfo}>
+                  <Text style={styles.name}>
+                    {this.state.addressSelected.name}
+                  </Text>
+                  <Text style={styles.position}>
+                    {this.state.addressSelected.governorate}
+                  </Text>
+                  <Text style={styles.about}>
+                    Area: {this.state.addressSelected.area}
+                  </Text>
+                  <Text style={styles.about}>
+                    Block: {this.state.addressSelected.block}
+                  </Text>
+                  <Text style={styles.about}>
+                    Street: {this.state.addressSelected.street}
+                  </Text>
+                  <Text style={styles.about}>
+                    House/Building: {this.state.addressSelected.house_building}
+                  </Text>
+                  <Text style={styles.about}>
+                    Floor: {this.state.addressSelected.floor}
+                  </Text>
+                  <Text style={styles.about}>
+                    Appartment: {this.state.addressSelected.appartment}
+                  </Text>
+                  <Text style={styles.about}>
+                    Extra Directions:{" "}
+                    {this.state.addressSelected.extra_directions}
+                  </Text>
+                </ScrollView>
+              </View>
+              <View style={styles.popupButtons}>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setModalVisible(false);
+                  }}
+                  style={styles.btnClose}
+                >
+                  <Text style={styles.txtClose}>Close</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      </View>
     );
   }
 }

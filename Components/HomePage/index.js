@@ -25,7 +25,7 @@ class HomePage extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.profile !== prevProps.profile) {
       this.props.setCart(this.props.profile);
-      // this.props.fetchProfile();
+      this.props.fetchProfile();
     }
   }
 

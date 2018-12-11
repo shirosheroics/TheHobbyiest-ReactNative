@@ -30,17 +30,7 @@ import styles from "./styles";
 
 class Checkout extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "Checkout",
-    headerLeft: (
-      <Button light onPress={() => navigation.navigate("Profile")}>
-        <Text>Prof</Text>
-      </Button>
-    ),
-    headerRight: (
-      <Button light onPress={() => navigation.navigate("Cart")}>
-        <Text>Cart</Text>
-      </Button>
-    )
+    title: "Checkout"
   });
 
   constructor(props) {
@@ -170,17 +160,6 @@ class Checkout extends Component {
             </Button>
           </Row>
         </Grid>
-        <Footer transparent>
-          {this.props.user ? (
-            <Button danger onPress={() => this.props.logout()}>
-              <Text>Logout</Text>
-            </Button>
-          ) : (
-            <Button onPress={() => this.props.navigation.navigate("Login")}>
-              <Text>Login</Text>
-            </Button>
-          )}
-        </Footer>
       </Content>
     );
   }
